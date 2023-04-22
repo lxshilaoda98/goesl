@@ -113,11 +113,13 @@ func (m *Message) Parse() error {
 		reply := cmr.Get("Reply-Text")
 
 		if strings.Contains(reply, "-ERR") {
-			return fmt.Errorf(EUnsuccessfulReply, reply[5:])
+			//return fmt.Errorf(EUnsuccessfulReply, reply[5:])
+			Warning("-ERR/command/reply====EUnsuccessfulReply:", reply[5:])
 		}
 	case "api/response":
 		if strings.Contains(string(m.Body), "-ERR") {
-			return fmt.Errorf(EUnsuccessfulReply, string(m.Body)[5:])
+			Warning("-ERR/api/response====EUnsuccessfulReply:", string(m.Body)[5:])
+			//return fmt.Errorf(EUnsuccessfulReply, string(m.Body)[5:])
 		}
 	case "text/event-json":
 		// OK, what is missing here is a way to interpret other JSON types - it expects string only (understandably
